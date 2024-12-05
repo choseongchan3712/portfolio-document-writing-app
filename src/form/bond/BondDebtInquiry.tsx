@@ -710,6 +710,90 @@ const BondDebtInquiry = (): JSX.Element => {
             "1. 위 조회서에 기재된 금액과 내용은 당사 장부와 일치하고 있으므로 이에 확인합니다."
           ),
           new Paragraph("2. 아래와 같이 상이점이 있음을 알려드립니다."),
+          new Paragraph(""),
+          new Paragraph(""),
+          new Paragraph({
+            alignment: "center",
+            text: "20 년 월 일",
+          }),
+          new Paragraph(""),
+          new Paragraph(""),
+          new Table({
+            borders: {
+              top: { style: "none", size: 0, color: "000000" },
+              left: { style: "none", size: 0, color: "000000" },
+              right: { style: "none", size: 0, color: "000000" },
+              bottom: { style: "none", size: 0, color: "000000" },
+              insideHorizontal: { style: "none", size: 0, color: "000000" },
+              insideVertical: { style: "none", size: 0, color: "000000" },
+            },
+            alignment: "right",
+            rows: [
+              new TableRow({
+                children: [
+                  new TableCell({
+                    children: [new Paragraph({
+                      alignment:"right",
+                      text: "대표자 성    명 : ",
+                    }),],
+                  }),
+                  new TableCell({
+                    children: [new Paragraph("________(인)")],
+                  }),
+                ],
+              }),
+              new TableRow({
+                children: [
+                  new TableCell({
+                    children: [new Paragraph({
+                      alignment:"right",
+                      text: "주    소 : ",
+                    }),],
+                  }),
+                  new TableCell({
+                    children: [new Paragraph("")],
+                  }),
+                ],
+              }),
+              new TableRow({
+                children: [
+                  new TableCell({
+                    children: [new Paragraph({
+                      alignment:"right",
+                      text: "회    사 : ",
+                    }),],
+                  }),
+                  new TableCell({
+                    children: [new Paragraph("")],
+                  }),
+                ],
+              }),
+              new TableRow({
+                children: [
+                  new TableCell({
+                    children: [new Paragraph({
+                      alignment:"right",
+                      text: "연 락 처 : ",
+                    }),],
+                  }),
+                  new TableCell({
+                    children: [new Paragraph("")],
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new Paragraph(""),
+          new Paragraph(""),
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: "주식회사 귀하",
+                bold: true,
+                size: 25,
+              }),
+            ],
+          }),
         ],
       },
     ],
