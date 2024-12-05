@@ -16,6 +16,6 @@ img {
 
 a {
   text-decoration: none;
-  display: none;
+  display: block;
 }
 `;
