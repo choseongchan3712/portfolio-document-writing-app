@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 // import Test from "./Test";
 import { GlobalStyled } from "./GlobalStyled";
-import IOU from "./form/bond/IOU";
+import Waiver from "./form/bond/Waiver";
+// import IOU from "./form/bond/IOU";
 
 
 const root = ReactDOM.createRoot(
@@ -11,7 +12,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <GlobalStyled />
-    <IOU />
+    <Waiver />
+    {/* <IOU /> */}
     {/* <Test /> */}
 
   </React.StrictMode>
