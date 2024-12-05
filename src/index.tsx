@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { GlobalStyled } from "./GlobalStyled";
-import Memorandum from "./form/bond/Memorandum";
+import BondDebtInquiry from "./form/bond/BondDebtInquiry";
+// import Memorandum from "./form/bond/Memorandum";
 // import Test from "./Test";
 // import Waiver from "./form/bond/Waiver";
 // import IOU from "./form/bond/IOU";
@@ -13,7 +14,8 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <GlobalStyled />
-    <Memorandum />
+    <BondDebtInquiry />
+    {/* <Memorandum /> */}
     {/* <Waiver /> */}
     {/* <IOU /> */}
     {/* <Test /> */}

@@ -2,7 +2,6 @@ import {
   Document,
   Packer,
   Paragraph,
-  Tab,
   Table,
   TableCell,
   TableRow,
