@@ -31,7 +31,6 @@ const IOU = (): JSX.Element => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
     reset,
   } = useForm<any>();
 
