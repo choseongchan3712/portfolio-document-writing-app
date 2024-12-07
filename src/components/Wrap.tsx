@@ -5,10 +5,10 @@ const Container = styled.div`
 position: relative;
 z-index: 0;
 width: 100%;
-padding-top: 70px;
+padding: 90px 20px 20px 20px;
 min-height: 100vh;
-background-color: #7e7e7e;
-color: #fff;
+display: flex;
+justify-content: space-between;
 `;
 
 interface WrapType {

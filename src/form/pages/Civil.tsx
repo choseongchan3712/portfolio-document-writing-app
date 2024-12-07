@@ -1,9 +1,7 @@
-import Wrap from "../components/Wrap";
+import Wrap from "../../components/Wrap";
 
-const Civil = ():JSX.Element =>{
-  return <Wrap>
-    civil
-  </Wrap>;
+const Civil = (): JSX.Element => {
+  return <Wrap>civil</Wrap>;
 };
 
 export default Civil;

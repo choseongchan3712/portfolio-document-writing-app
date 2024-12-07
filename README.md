@@ -7,4 +7,5 @@
 [X] npm install file-saver
 [X] npm install html-docx-js
 [X] npm i react-router-dom
+[X] npm i react-hook-form
 
