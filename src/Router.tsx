@@ -1,14 +1,15 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Report from "./form/pages/Report";
-import Criminal from "./form/pages/Criminal";
-import Bond from "./form/pages/Bond";
-import Civil from "./form/pages/Civil";
-import Administrative from "./form/pages/Administrative";
+import Report from "./pages/Report";
+import Criminal from "./pages/Criminal";
+import Bond from "./pages/Bond";
+import Civil from "./pages/Civil";
+import Administrative from "./pages/Administrative";
 import IOU from "./form/bond/IOU";
 import Waiver from "./form/bond/Waiver";
 import Reminder from "./form/bond/Reminder";
 import Memorandum from "./form/bond/Memorandum";
+import CivilLitigationComplaint from "./form/civil_litigation/CivilLitigationComplaint";
 
 const Router = (): JSX.Element => {
   return (
@@ -25,6 +26,7 @@ const Router = (): JSX.Element => {
         <Route path="/waiver" element={<Waiver />} />
         <Route path="/reminder" element={<Reminder />} />
         <Route path="/memorandum" element={<Memorandum />} />
+        <Route path="/civil_litigation_complaint" element={<CivilLitigationComplaint/>} />
       </Routes>
     </HashRouter>
   );

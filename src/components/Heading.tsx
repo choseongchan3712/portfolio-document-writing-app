@@ -4,19 +4,20 @@ import styled from "styled-components";
 const Container = styled.div`
 width: 100%;
 display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 20px;
+justify-content: flex-start;
+font-size: 25px;
 font-weight: 700;
-margin-bottom: 20px;
+margin-top: 10px;
+margin-bottom: 30px;
+font-style: italic;
 `;
 
-interface TitleType {
+interface Headingtype {
   children: ReactNode;
 }
 
-const Title = ({children}: TitleType):JSX.Element => {
+const Heading = ({children}:Headingtype):JSX.Element=>{
   return <Container>{children}</Container>;
 };
 
-export default Title;
+export default Heading;

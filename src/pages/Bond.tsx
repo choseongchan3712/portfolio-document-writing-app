@@ -1,5 +1,5 @@
-import DocumentButton from "../../components/DocumentButton";
-import Wrap from "../../components/Wrap";
+import DocumentButton from "../components/DocumentButton";
+import Wrap from "../components/Wrap";
 
 const Bond = (): JSX.Element => {
   return (

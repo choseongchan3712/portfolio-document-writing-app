@@ -1,4 +1,4 @@
-import Wrap from "../../components/Wrap";
+import Wrap from "../components/Wrap";
 
 const Administrative = (): JSX.Element => {
   return <Wrap>Administrative</Wrap>;
