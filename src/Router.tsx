@@ -10,6 +10,7 @@ import Waiver from "./form/bond/Waiver";
 import Reminder from "./form/bond/Reminder";
 import Memorandum from "./form/bond/Memorandum";
 import CivilLitigationComplaint from "./form/civil_litigation/CivilLitigationComplaint";
+import Jurisdiction from "./form/civil_litigation/Jurisdiction";
 
 const Router = (): JSX.Element => {
   return (
@@ -27,6 +28,7 @@ const Router = (): JSX.Element => {
         <Route path="/reminder" element={<Reminder />} />
         <Route path="/memorandum" element={<Memorandum />} />
         <Route path="/civil_litigation_complaint" element={<CivilLitigationComplaint/>} />
+        <Route path="/jurisdiction" element={<Jurisdiction/>} />
       </Routes>
     </HashRouter>
   );
