@@ -4,16 +4,7 @@ import Name from "../../components/Name";
 import Title from "../../components/Title";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  Document,
-  Packer,
-  Paragraph,
-  Table,
-  TableCell,
-  TableRow,
-  TextRun,
-  WidthType,
-} from "docx";
+import { Document, Packer, Paragraph, Table, TableCell, TableRow, TextRun, WidthType } from "docx";
 import { saveAs } from "file-saver";
 import SubmitButton from "../../components/SubmitButton";
 
@@ -25,7 +16,7 @@ const InputText = styled.input`
   margin-bottom: 20px;
 `;
 
-const PartiallyWithdrawn = (): JSX.Element => {
+const Suspension = ():JSX.Element=>{
   const [data, setData] = useState<any>(null);
 
   const { register, handleSubmit, reset } = useForm<any>();
@@ -36,7 +27,7 @@ const PartiallyWithdrawn = (): JSX.Element => {
       category: `${data.category}`,
       plaintiff: `${data.plaintiff}`,
       defendant: `${data.defendant}`,
-      withdrawn: `${data.withdrawn}`,
+      withdrawn_date: `${data.withdrawn_date}`,
       creation_date: `${data.creation_date}`,
       courthouse: `${data.courthouse}`,
       court: `${data.court}`,
@@ -44,17 +35,17 @@ const PartiallyWithdrawn = (): JSX.Element => {
     reset();
   };
 
-  useEffect(() => {
+  useEffect(()=>{
     if (data) {
       const doc = new Document({
-        sections: [
+        sections:[
           {
-            children: [
+            children:[
               new Paragraph({
                 alignment: "center",
                 children: [
                   new TextRun({
-                    text: "소 일 부 취 하 서",
+                    text: "소취하에 대한 이의신청서",
                     bold: true,
                     size: 30,
                   }),
@@ -76,20 +67,20 @@ const PartiallyWithdrawn = (): JSX.Element => {
                   insideHorizontal: { style: "none" },
                   insideVertical: { style: "none" },
                 },
-                rows: [
+                rows:[
                   new TableRow({
                     height: {
                       value: 700,
                       rule: "exact",
                     },
-                    children: [
+                    children:[
                       new TableCell({
                         width: {
                           size: 15,
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: "사    건",
                             alignment: "left",
@@ -102,28 +93,28 @@ const PartiallyWithdrawn = (): JSX.Element => {
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: `${data.case_number} ${data.category}`,
                             alignment: "left",
                           }),
                         ],
                       }),
-                    ],
+                    ]
                   }),
                   new TableRow({
                     height: {
                       value: 700,
                       rule: "exact",
                     },
-                    children: [
+                    children:[
                       new TableCell({
                         width: {
                           size: 15,
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: "원    고",
                             alignment: "left",
@@ -136,28 +127,28 @@ const PartiallyWithdrawn = (): JSX.Element => {
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: `${data.plaintiff}`,
                             alignment: "left",
                           }),
                         ],
                       }),
-                    ],
+                    ]
                   }),
                   new TableRow({
                     height: {
                       value: 700,
                       rule: "exact",
                     },
-                    children: [
+                    children:[
                       new TableCell({
                         width: {
                           size: 15,
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: "피    고",
                             alignment: "left",
@@ -170,14 +161,14 @@ const PartiallyWithdrawn = (): JSX.Element => {
                           type: WidthType.PERCENTAGE,
                         },
                         verticalAlign: "center",
-                        children: [
+                        children:[
                           new Paragraph({
                             text: `${data.defendant}`,
                             alignment: "left",
                           }),
                         ],
                       }),
-                    ],
+                    ]
                   }),
                 ],
               }),
@@ -185,7 +176,7 @@ const PartiallyWithdrawn = (): JSX.Element => {
               new Paragraph(""),
               new Paragraph(""),
               new Paragraph({
-                text: ` 위 사건과 관련하여 원고는 피고 ${data.withdrawn} 부분에 대하여 소를 전부 취하합니다.`,
+                text: ` 위 사건에 관하여 원고는 이 사건 소를 전부 취하하였는바(피고는 ${data.withdrawn_date}에 원고의 소 취하서를 송달 받았습니다.), 피고는 원고의 위와 같은 소 취하에 동의할 수 없으므로 이의를 신청합니다.`,
               }),
               new Paragraph(""),
               new Paragraph(""),
@@ -195,7 +186,7 @@ const PartiallyWithdrawn = (): JSX.Element => {
                 alignment: "center",
               }),
               new Paragraph({
-                text: `위 원고 ${data.plaintiff} (서명 또는 날인)`,
+                text: `위 피고 ${data.defendant} (서명 또는 날인)`,
                 alignment: "center",
               }),
               new Paragraph(""),
@@ -211,27 +202,28 @@ const PartiallyWithdrawn = (): JSX.Element => {
               new Paragraph(""),
               new Paragraph(""),
               new Paragraph({
-                children: [
+                children:[
                   new TextRun({
                     text: `${data.courthouse} ${data.court} 귀중`,
                     size: 25,
                     bold: true,
                   }),
                 ],
+                
               }),
             ],
-          },
+          }
         ],
       });
       Packer.toBlob(doc).then((bolb) => {
-        saveAs(bolb, "소일부취하서.docx");
+        saveAs(bolb, "소취하에 대한 이의신청서.docx");
       });
     }
   }, [data]);
 
   return (
     <DetailWrap submitHandler={handleSubmit(onSubmit)}>
-      <Name>소일부취하서</Name>
+      <Name>소취하에 대한 이의신청서</Name>
       <Title>사건번호</Title>
       <InputText type="text" {...register("case_number")} />
       <Title>사건유형</Title>
@@ -244,8 +236,8 @@ const PartiallyWithdrawn = (): JSX.Element => {
       <InputText type="text" {...register("plaintiff")} />
       <Title>피고</Title>
       <InputText type="text" {...register("defendant")} />
-      <Title>취하부분</Title>
-      <InputText type="text" {...register("withdrawn")} />
+      <Title>취하일자</Title>
+      <InputText type="date" {...register("withdrawn_date")} />
       <Title>작성일자</Title>
       <InputText type="text" {...register("creation_date")} />
       <Title>제출 법원</Title>
@@ -261,4 +253,4 @@ const PartiallyWithdrawn = (): JSX.Element => {
   );
 };
 
-export default PartiallyWithdrawn;
+export default Suspension;

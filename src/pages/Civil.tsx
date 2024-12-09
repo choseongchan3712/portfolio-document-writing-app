@@ -8,6 +8,7 @@ const Civil = (): JSX.Element => {
       <DocumentButton link="/jurisdiction" name="관할합의서" />
       <DocumentButton link="/withdraw" name="소취하서" />
       <DocumentButton link="/partially_withdrawn" name="소일부취하서" />
+      <DocumentButton link="/suspension" name="소취하에 대한 이의신청서" />
     </Wrap>
   );
 };
