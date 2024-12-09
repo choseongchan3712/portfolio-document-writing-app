@@ -20,7 +20,6 @@ import styled from "styled-components";
 import HeadingWrap from "../../components/HeadingWrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { error } from "console";
 
 const InputText = styled.input`
   all: unset;
@@ -79,7 +78,15 @@ const CivilLitigationComplaint = (): JSX.Element => {
   const [effectPlus, setEffectPlus] = useState<number[]>([1]);
   const [causePlus, setCausePlus] = useState<number[]>([1]);
   const [proofPlus, setProofPlus] = useState<number[]>([1]);
-  const { register, handleSubmit, reset, formState:{errors} } = useForm<any>();
+  const [effectElement, setEffectElement] = useState<any>(null);
+  const [causeElement, setCauseElement] = useState<any>(null);
+  const [proofElement, setProofElement] = useState<any>(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<any>();
 
   const changeHandler = () => {
     setCattle(`${whatCattle?.current?.value}`);
@@ -101,12 +108,68 @@ const CivilLitigationComplaint = (): JSX.Element => {
   };
 
   const onSubmit = (data: any) => {
-    setData({});
+    setData({
+      plaintiff_name: `${data.plaintiff_name}`,
+      plaintiff_id: `${data.plaintiff_id}`,
+      plaintiff_address: `${data.plaintiff_address}`,
+      plaintiff_number: `${data.plaintiff_number}`,
+      plaintiff_phone: `${data.plaintiff_phone}`,
+      plaintiff_fax: `${data.plaintiff_fax}`,
+      plaintiff_mail: `${data.plaintiff_mail}`,
+      lawyer_name: `${data.lawyer_name}`,
+      lawyer_address: `${data.lawyer_address}`,
+      lawyer_number: `${data.lawyer_number}`,
+      defendant_name: `${data.defendant_name}`,
+      defendant_id: `${data.defendant_id}`,
+      defendant_address: `${data.defendant_address}`,
+      defendant_number: `${data.defendant_number}`,
+      defendant_phone: `${data.defendant_phone}`,
+      defendant_fax: `${data.defendant_fax}`,
+      defendant_mail: `${data.defendant_mail}`,
+      cattle: `${data.cattle}`,
+      effect: effectPlus.map((value) => `${data["effect" + value]}`), 
+      //!JavaScript에서는 data["effect" + value] 형태로 객체키를 동적으로 생성함.(=========********==========)
+      cause: causePlus.map((value) => `${data["cause" + value]}`),
+      proof: proofPlus.map((value) => `${data["proof" + value]}`),
+      creation_date: `${data.creation_date}`,
+      courthouse: `${data.courthouse}`,
+    });
+
     reset();
   };
+  console.log(data?.effect);
 
   useEffect(() => {
     if (data) {
+      setEffectElement(
+        data?.effect.map(
+          (value: any, index: number) =>
+            new Paragraph({
+              text: `${index + 1}. ${value || ""}`,
+            })
+        )
+      );
+      setCauseElement(
+        data?.cause.map(
+          (value: any, index: number) =>
+            new Paragraph({
+              text: `${index + 1}. ${value || ""}`,
+            })
+        )
+      );
+      setProofElement(
+        data?.proof.map(
+          (value: any, index: number) =>
+            new Paragraph({
+              text: `${index + 1}. ${value || ""}`,
+            })
+        )
+      );
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (effectElement && causeElement && proofElement) {
       const doc = new Document({
         sections: [
           {
@@ -121,6 +184,8 @@ const CivilLitigationComplaint = (): JSX.Element => {
                   }),
                 ],
               }),
+              new Paragraph(""),
+              new Paragraph(""),
               new Paragraph(""),
               new Table({
                 width: {
@@ -152,7 +217,6 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         children: [
                           new Paragraph({
                             text: "원    고",
-                            alignment: "center",
                           }),
                         ],
                       }),
@@ -165,28 +229,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `(주민등록번호)`,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  new TableRow({
-                    height: {
-                      value: 700,
-                      rule: "exact",
-                    },
-                    children: [
-                      new TableCell({
-                        width: {
-                          size: 80,
-                          type: WidthType.PERCENTAGE,
-                        },
-                        verticalAlign: "top",
-                        columnSpan: 2,
-                        children: [
-                          new Paragraph({
-                            text: `시 구 로 (우편번호)`,
+                            text: `${data.plaintiff_name} (${data.plaintiff_id})`,
                           }),
                         ],
                       }),
@@ -207,7 +250,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `위 소송대리인 변호사`,
+                            text: `${data.plaintiff_address} (우편번호: ${data.plaintiff_number})`,
                           }),
                         ],
                       }),
@@ -228,7 +271,28 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `시 구 로 (우편번호 )`,
+                            text: `위 소송대리인 변호사 ${data.lawyer_name}`,
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  new TableRow({
+                    height: {
+                      value: 700,
+                      rule: "exact",
+                    },
+                    children: [
+                      new TableCell({
+                        width: {
+                          size: 80,
+                          type: WidthType.PERCENTAGE,
+                        },
+                        verticalAlign: "top",
+                        columnSpan: 2,
+                        children: [
+                          new Paragraph({
+                            text: `${data.lawyer_address} (${data.lawyer_number})`,
                           }),
                         ],
                       }),
@@ -248,7 +312,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         verticalAlign: "top",
                         children: [
                           new Paragraph({
-                            text: `전화번호: `,
+                            text: `전화번호: ${data.plaintiff_phone}`,
                           }),
                         ],
                       }),
@@ -260,7 +324,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         verticalAlign: "top",
                         children: [
                           new Paragraph({
-                            text: `팩시밀리번호: `,
+                            text: `팩시밀리번호: ${data.plaintiff_fax}`,
                           }),
                         ],
                       }),
@@ -281,7 +345,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `전자우편주소:`,
+                            text: `전자우편주소: ${data.plaintiff_mail}`,
                           }),
                         ],
                       }),
@@ -319,7 +383,6 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         children: [
                           new Paragraph({
                             text: "피    고",
-                            alignment: "center",
                           }),
                         ],
                       }),
@@ -332,7 +395,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `(주민등록번호)`,
+                            text: `${data.defendant_name}(${data.defendant_id})`,
                           }),
                         ],
                       }),
@@ -353,7 +416,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `시 구 로 (우편번호)`,
+                            text: `${data.defendant_address} (우편번호: ${data.defendant_number})`,
                           }),
                         ],
                       }),
@@ -373,7 +436,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         verticalAlign: "top",
                         children: [
                           new Paragraph({
-                            text: `전화번호: `,
+                            text: `전화번호: ${data.defendant_phone}`,
                           }),
                         ],
                       }),
@@ -385,7 +448,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         verticalAlign: "top",
                         children: [
                           new Paragraph({
-                            text: `팩시밀리번호: `,
+                            text: `팩시밀리번호: ${data.defendant_fax}`,
                           }),
                         ],
                       }),
@@ -406,7 +469,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                         columnSpan: 2,
                         children: [
                           new Paragraph({
-                            text: `전자우편주소:`,
+                            text: `전자우편주소: ${data.defendant_mail}`,
                           }),
                         ],
                       }),
@@ -418,7 +481,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: "대여금청구의 소",
+                    text: `${data.cattle}의 소`,
                     bold: true,
                     size: 25,
                   }),
@@ -436,6 +499,8 @@ const CivilLitigationComplaint = (): JSX.Element => {
                 ],
               }),
               new Paragraph(""),
+              ...effectElement,
+              new Paragraph(""),
               new Paragraph({
                 alignment: "center",
                 children: [
@@ -447,6 +512,8 @@ const CivilLitigationComplaint = (): JSX.Element => {
                 ],
               }),
               new Paragraph(""),
+              ...causeElement,
+              new Paragraph(""),
               new Paragraph({
                 alignment: "center",
                 children: [
@@ -457,6 +524,8 @@ const CivilLitigationComplaint = (): JSX.Element => {
                   }),
                 ],
               }),
+              new Paragraph(""),
+              ...proofElement,
               new Paragraph(""),
               new Paragraph({
                 alignment: "center",
@@ -602,7 +671,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
               new Paragraph(""),
               new Paragraph(""),
               new Paragraph({
-                text: `20 . .`,
+                text: `${data.creation_date}`,
                 alignment: "center",
               }),
               new Paragraph(""),
@@ -612,7 +681,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
                 alignment: "center",
               }),
               new Paragraph({
-                text: `변호사 (서명 또는 날인)`,
+                text: `변호사 ${data.lawyer_name} (서명 또는 날인)`,
                 alignment: "center",
               }),
               new Paragraph(""),
@@ -620,7 +689,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
               new Paragraph({
                 children: [
                   new TextRun({
-                    text: ` 지방법원 귀중`,
+                    text: `${data.courthouse} 귀중`,
                     size: 25,
                     bold: true,
                   }),
@@ -634,7 +703,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
         saveAs(bolb, "민사소송소장.docx");
       });
     }
-  }, [data]);
+  }, [effectElement && causeElement && proofElement]);
 
   return (
     <DetailWrap submitHandler={handleSubmit(onSubmit)}>
@@ -643,43 +712,87 @@ const CivilLitigationComplaint = (): JSX.Element => {
       <HeadingWrap>
         <Title>
           <span>이름:</span>
-          <InputText type="text" {...register("plaintiff_name", {required:"이름은 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_name", { required: "이름은 필수입니다." })}
+          />
         </Title>
         <Title>
           <span>주민등록번호:</span>
-          <InputText type="text" {...register("plaintiff_id", {required:"주민등록번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_id", {
+              required: "주민등록번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>주소:</span>
-          <InputText type="text" {...register("plaintiff_address", {required:"주소는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_address", {
+              required: "주소는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>우편번호:</span>
-          <InputText type="text" {...register("plaintiff_number", {required:"우편번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_number", {
+              required: "우편번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>전화번호:</span>
-          <InputText type="text" {...register("plaintiff_phone", {required:"전화번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_phone", {
+              required: "전화번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>팩시밀리번호:</span>
-          <InputText type="text" {...register("plaintiff_fax", {required:"팩시밀리번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("plaintiff_fax", {
+              required: "팩시밀리번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>전자우편주소:</span>
-          <InputText type="email" {...register("plaintiff_mail", {required:"전자우편주소는 필수입니다."})}/>
+          <InputText
+            type="email"
+            {...register("plaintiff_mail", {
+              required: "전자우편주소는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>변호사(소송대리인):</span>
-          <InputText type="text" {...register("lawyer_name", {required:"이름은 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("lawyer_name", { required: "이름은 필수입니다." })}
+          />
         </Title>
         <Title>
           <span>변호사 주소:</span>
-          <InputText type="text" {...register("lawyer_address", {required:"주소는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("lawyer_address", { required: "주소는 필수입니다." })}
+          />
         </Title>
         <Title>
           <span>변호사 우편번호:</span>
-          <InputText type="email" {...register("lawyer_mail", {required:"우편번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("lawyer_number", {
+              required: "우편번호는 필수입니다.",
+            })}
+          />
         </Title>
       </HeadingWrap>
 
@@ -687,31 +800,64 @@ const CivilLitigationComplaint = (): JSX.Element => {
       <HeadingWrap>
         <Title>
           <span>이름:</span>
-          <InputText type="text" {...register("defendant_name", {required:"이름은 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_name", { required: "이름은 필수입니다." })}
+          />
         </Title>
         <Title>
           <span>주민등록번호:</span>
-          <InputText type="text" {...register("defendant_id", {required:"주민등록번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_id", {
+              required: "주민등록번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>주소:</span>
-          <InputText type="text" {...register("defendant_address", {required:"주소는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_address", {
+              required: "주소는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>우편번호:</span>
-          <InputText type="text" {...register("defendant_number", {required:"우편번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_number", {
+              required: "우편번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>전화번호:</span>
-          <InputText type="text" {...register("defendant_phone", {required:"전화번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_phone", {
+              required: "전화번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>팩시밀리번호:</span>
-          <InputText type="text" {...register("defendant_fax", {required:"팩시밀리번호는 필수입니다."})}/>
+          <InputText
+            type="text"
+            {...register("defendant_fax", {
+              required: "팩시밀리번호는 필수입니다.",
+            })}
+          />
         </Title>
         <Title>
           <span>전자우편주소:</span>
-          <InputText type="email" {...register("defendant_mail", {required:"전자우편주소는 필수입니다."})}/>
+          <InputText
+            type="email"
+            {...register("defendant_mail", {
+              required: "전자우편주소는 필수입니다.",
+            })}
+          />
         </Title>
       </HeadingWrap>
       <Heading>소의 종류</Heading>
@@ -792,7 +938,11 @@ const CivilLitigationComplaint = (): JSX.Element => {
       {effectPlus.map((data, index) => (
         <>
           <Title key={index}>청구취지 {data}</Title>
-          <Textarea cols={50} rows={5}></Textarea>
+          <Textarea
+            cols={50}
+            rows={5}
+            {...register(`effect${data}`)}
+          ></Textarea>
         </>
       ))}
       <Heading>
@@ -804,7 +954,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
       {causePlus.map((data, index) => (
         <>
           <Title key={index}>청구원인 {data}</Title>
-          <Textarea cols={50} rows={5}></Textarea>
+          <Textarea cols={50} rows={5} {...register(`cause${data}`)}></Textarea>
         </>
       ))}
       <Heading>
@@ -816,13 +966,20 @@ const CivilLitigationComplaint = (): JSX.Element => {
       {proofPlus.map((data, index) => (
         <>
           <Title key={index}>입증방법 {data}</Title>
-          <Textarea cols={50} rows={5}></Textarea>
+          <Textarea cols={50} rows={5} {...register(`proof${data}`)}></Textarea>
         </>
       ))}
       <Heading>작성날짜</Heading>
-      <InputText />
+      <InputText
+        type="text"
+        {...register("creation_date", { required: "작성날짜는 필수입니다." })}
+      />
       <Heading>제출법원</Heading>
-      <InputText style={{marginBottom: '20px'}}/>
+      <InputText
+        style={{ marginBottom: "20px" }}
+        type="text"
+        {...register("courthouse", { required: "제출법원은 필수입니다." })}
+      />
       <SubmitButton />
     </DetailWrap>
   );
