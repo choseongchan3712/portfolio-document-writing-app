@@ -71,7 +71,7 @@ const Textarea = styled.textarea`
   overflow-x: hidden; /* 가로 스크롤 제거 */
 `;
 
-const CivilLitigationComplaint = (): JSX.Element => {
+const AdminComplaint = (): JSX.Element => {
   const [data, setData] = useState<any>();
   const whatCattle = useRef<any>();
   const [cattle, setCattle] = useState<string>("claim");
@@ -127,7 +127,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
       defendant_fax: `${data.defendant_fax}`,
       defendant_mail: `${data.defendant_mail}`,
       cattle: `${data.cattle}`,
-      effect: effectPlus.map((value) => `${data["effect" + value]}`), 
+      effect: effectPlus.map((value) => `${data["effect" + value]}`),
       //!JavaScript에서는 data["effect" + value] 형태로 객체키를 동적으로 생성함.(=========********==========)
       cause: causePlus.map((value) => `${data["cause" + value]}`),
       proof: proofPlus.map((value) => `${data["proof" + value]}`),
@@ -137,7 +137,7 @@ const CivilLitigationComplaint = (): JSX.Element => {
 
     reset();
   };
-  
+
   useEffect(() => {
     if (data) {
       setEffectElement(
@@ -699,14 +699,14 @@ const CivilLitigationComplaint = (): JSX.Element => {
         ],
       });
       Packer.toBlob(doc).then((bolb) => {
-        saveAs(bolb, "민사소송소장.docx");
+        saveAs(bolb, "행정소송소장.docx");
       });
     }
   }, [effectElement && causeElement && proofElement]);
 
   return (
     <DetailWrap submitHandler={handleSubmit(onSubmit)}>
-      <Name>민사소송 소장</Name>
+      <Name>행정소송 소장</Name>
       <Heading>원고</Heading>
       <HeadingWrap>
         <Title>
@@ -862,68 +862,63 @@ const CivilLitigationComplaint = (): JSX.Element => {
       <Heading>소의 종류</Heading>
       <SelectWrap>
         <select ref={whatCattle} onChange={changeHandler}>
-          <option value="claim">청구의 내용에 따른 소의 구분</option>
-          <option value="case">사건의 유형별 구분</option>
+          <option value="cancellation">취소소송</option>
+          <option value="invalidity">무효등확인소송</option>
+          <option value="illegality">부작위위법확인소송</option>
+          <option value="party">당사자소송</option>
+          <option value="populace">민중소송</option>
+          <option value="organ">기관소송</option>
         </select>
         <select {...register("cattle")}>
-          {cattle === "claim" ? (
+          {cattle === "cancellation" ? (
             <>
-              <option>금전 지급 청구</option>
-              <option>물건 반환 청구</option>
-              <option>부동산 인도 청구</option>
-              <option>임대차 보증금 반환 청구</option>
-              <option>채권 변제 청구</option>
-              <option>손해배상 청구</option>
-              <option>부당이득 반환 청구</option>
-              <option>부양료 청구</option>
-              <option>재산 분할 청구</option>
-              <option>임금 지급 청구</option>
-              <option>의료비 지급 청구</option>
-              <option>건설 대금 지급 청구</option>
-              <option>계약금 반환 청구</option>
-              <option>소유권 확인</option>
-              <option>채권 존재 확인</option>
-              <option>채무 부존재 확인</option>
-              <option>법률관계 확인</option>
-              <option>등기의 유효성 확인</option>
-              <option>특허권 및 상표권의 유효성 확인</option>
-              <option>명예훼손 여부 확인</option>
-              <option>계약 효력 확인</option>
-              <option>계약 해제</option>
-              <option>계약 해지</option>
-              <option>사해행위 취소</option>
-              <option>공유물 분할</option>
-              <option>친자 관계 확인</option>
-              <option>상속 회복 청구</option>
-              <option>유언 무효 확인</option>
-              <option>회사 합병 무효</option>
-              <option>권리 변경 청구</option>
+              <option>양도소득세 부과처분 취소</option>
+              <option>종합소득세 부과처분 취소</option>
+              <option>재산세 부과처분 취소</option>
+              <option>부가가치세 부과처분 취소</option>
+              <option>영업정지 처분 취소</option>
+              <option>건축허가 취소 처분 취소</option>
+              <option>택시운송사업 면허 취소 처분 취소</option>
+              <option>공무원 파면처분 취소</option>
+              <option>공무원 해임처분 취소</option>
+              <option>군인 강등처분 취소</option>
+              <option>대학 입학 취소처분 취소</option>
+              <option>교원 징계처분 취소</option>
+            </>
+          ) : cattle === "invalidity" ? (
+            <>
+              <option>비권한자에 의한 과세처분 무효 확인</option>
+              <option>절차상 하자가 있는 건축허가 무효 확인</option>
+              <option>법적 근거 없이 부과된 과태료 무효 확인</option>
+              <option>비례 원칙 위반의 처분 무효 확인</option>
+            </>
+          ) : cattle === "illegality" ? (
+            <>
+              <option>건축허가 부작위 위법 확인</option>
+              <option>승진 심사 부작위 위법 확인</option>
+              <option>사회보장급여 신청 부작위 위법 확인</option>
+            </>
+          ) : cattle === "party" ? (
+            <>
+              <option>공무원 임용확인</option>
+              <option>공무원 연금지급 청구</option>
+              <option>공공임대주택 입주권 확인</option>
+              <option>보훈대상자 등록 확인</option>
+              <option>국가유공자 자격 확인</option>
+              <option>참전 명예수당 지급 청구</option>
+            </>
+          ) : cattle === "populace" ? (
+            <>
+              <option>선거무효</option>
+              <option>당선무효</option>
+              <option>주민투표 결과 무효 확인</option>
+              <option>주민소환 투표 결과 무효 확인</option>
             </>
           ) : (
             <>
-              <option>소유권 이전 등기 청구</option>
-              <option>점유권 반환 청구</option>
-              <option>경계 확정</option>
-              <option>부동산 매매대금 반환</option>
-              <option>토지 수용 보상 청구</option>
-              <option>물품 대금 청구</option>
-              <option>약정금 지급 청구</option>
-              <option>영업 방해 손해배상 청구</option>
-              <option>교통사고 손해배상 청구</option>
-              <option>의료 사고 손해배상 청구</option>
-              <option>명예훼손 손해배상 청구</option>
-              <option>채무불이행 손해배상 청구</option>
-              <option>이혼 청구</option>
-              <option>재산 분할 청구</option>
-              <option>양육비 청구</option>
-              <option>친권자 변경 청구</option>
-              <option>상속 회복 청구</option>
-              <option>계약 이행 청구</option>
-              <option>계약 해제 확인</option>
-              <option>계약 무효 확인</option>
-              <option>특허 침해 금지 청구</option>
-              <option>상표권 침해 금지 청구</option>
-              <option>저작권 침해 금지 청구</option>
+              <option>지방자치단체 경계 확정</option>
+              <option>지방세 부과권 다툼</option>
+              <option>지방교육자치권 확인</option>
             </>
           )}
         </select>
@@ -984,4 +979,4 @@ const CivilLitigationComplaint = (): JSX.Element => {
   );
 };
 
-export default CivilLitigationComplaint;
+export default AdminComplaint;
