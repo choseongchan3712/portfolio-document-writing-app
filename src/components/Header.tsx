@@ -13,7 +13,7 @@ align-items: center;
 justify-content: space-between;
 div {
   height: 100%;
-  width: calc(100% / 5);
+  width: calc(100% / 4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,6 @@ div {
 
 const Header = ():JSX.Element =>{
   return <Container>
-    <div><Link to={"/report"}>보고서</Link></div>
     <div><Link to={"/bond"}>채권 채무</Link></div>
     <div><Link to={"/civil"}>민사소송</Link></div>
     <div><Link to={"/criminal"}>형사소송</Link></div>

@@ -1,6 +1,5 @@
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
-import Report from "./pages/Report";
 import Criminal from "./pages/Criminal";
 import Bond from "./pages/Bond";
 import Civil from "./pages/Civil";
@@ -24,8 +23,7 @@ const Router = (): JSX.Element => {
     <HashRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Navigate to={"/report"} replace />} />
-        <Route path="/report" element={<Report />} />
+        <Route path="/" element={<Navigate to={"/bond"} replace />} />
         <Route path="/bond" element={<Bond />} />
         <Route path="/civil" element={<Civil />} />
         <Route path="/criminal" element={<Criminal />} />
