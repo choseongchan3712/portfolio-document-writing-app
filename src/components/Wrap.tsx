@@ -7,8 +7,9 @@ z-index: 0;
 width: 100%;
 padding: 90px 20px 20px 20px;
 min-height: 100vh;
-display: flex;
-justify-content: space-between;
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+gap: 10px;
 `;
 
 interface WrapType {

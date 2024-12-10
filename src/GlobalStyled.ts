@@ -6,6 +6,7 @@ ${reset}
 
 * {
   box-sizing: border-box;
+  letter-spacing: -1px;
 
 }
 

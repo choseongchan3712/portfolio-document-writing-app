@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 18%;
+  width: 100%;
   height: 10vw;
   display: flex;
   align-items: center;

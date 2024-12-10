@@ -16,6 +16,7 @@ import PartiallyWithdrawn from "./form/civil_litigation/PartiallyWithdrawn";
 import Suspension from "./form/civil_litigation/Suspension";
 import AdminComplaint from "./form/administrative/AdminComplaint";
 import Judgment from "./form/administrative/Judgment";
+import Plaint from "./form/criminal_litigation/Plaint";
 
 const Router = (): JSX.Element => {
   return (
@@ -40,6 +41,7 @@ const Router = (): JSX.Element => {
         <Route path="/adminComplaint" element={<AdminComplaint/>} />
         <Route path="/adminComplaint" element={<AdminComplaint/>} />
         <Route path="/judgment" element={<Judgment/>} />
+        <Route path="/plaint" element={<Plaint/>} />
       </Routes>
     </HashRouter>
   );
