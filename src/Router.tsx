@@ -17,6 +17,7 @@ import AdminComplaint from "./form/administrative/AdminComplaint";
 import Judgment from "./form/administrative/Judgment";
 import Plaint from "./form/criminal_litigation/Plaint";
 import CriminalWithdrawn from "./form/criminal_litigation/CriminalWithdrawn";
+import PageNotFound from "./pages/PageNotFound";
 
 const Router = (): JSX.Element => {
   return (
@@ -32,16 +33,20 @@ const Router = (): JSX.Element => {
         <Route path="/waiver" element={<Waiver />} />
         <Route path="/reminder" element={<Reminder />} />
         <Route path="/memorandum" element={<Memorandum />} />
-        <Route path="/civil_litigation_complaint" element={<CivilLitigationComplaint/>} />
-        <Route path="/jurisdiction" element={<Jurisdiction/>} />
-        <Route path="/withdraw" element={<Withdraw/>} />
-        <Route path="/partially_withdrawn" element={<PartiallyWithdrawn/>} />
-        <Route path="/suspension" element={<Suspension/>} />
-        <Route path="/adminComplaint" element={<AdminComplaint/>} />
-        <Route path="/adminComplaint" element={<AdminComplaint/>} />
-        <Route path="/judgment" element={<Judgment/>} />
-        <Route path="/plaint" element={<Plaint/>} />
-        <Route path="/criminal_withdrawn" element={<CriminalWithdrawn/>} />
+        <Route
+          path="/civil_litigation_complaint"
+          element={<CivilLitigationComplaint />}
+        />
+        <Route path="/jurisdiction" element={<Jurisdiction />} />
+        <Route path="/withdraw" element={<Withdraw />} />
+        <Route path="/partially_withdrawn" element={<PartiallyWithdrawn />} />
+        <Route path="/suspension" element={<Suspension />} />
+        <Route path="/adminComplaint" element={<AdminComplaint />} />
+        <Route path="/adminComplaint" element={<AdminComplaint />} />
+        <Route path="/judgment" element={<Judgment />} />
+        <Route path="/plaint" element={<Plaint />} />
+        <Route path="/criminal_withdrawn" element={<CriminalWithdrawn />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </HashRouter>
   );
